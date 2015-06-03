@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Google I/O 2015</title>
+<title>TP2</title>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="copyright" content="Copyright &#169; Pas de révolution, mais des améliorations" />
+<meta name="copyright" content="Copyright &#169; Liaison de notre interface à de vraies données." />
 <meta name="generator" content="AsciiDoc 8.6.9" />
 <style type="text/css">
 /*
@@ -3804,127 +3804,192 @@ setTimeout(w3c_slidy.hide_slides, 50);
 </head>
 <body class="article" style="max-width:45em">
 <div id="header" class="slide">
-<h1>Google I/O 2015</h1>
-<span id="author">Pas de révolution, mais des améliorations</span><br />
+<h1>TP2</h1>
+<span id="author">Liaison de notre interface à de vraies données.</span><br />
 <span id="revdate"><link rel="stylesheet" href="myslidy.css" type="text/css" /></span>
 </div>
 <div class="sect1 slide">
-<h1 id="_android_m">Android M</h1>
+<h1 id="_une_simple_maquette">Une simple maquette</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="paragraph"><p>Pour l&#8217;instant, notre application n&#8217;est qu&#8217;une simple maquette, elle n&#8217;est reliée à aucune donnée réelle.</p></div>
+<div class="paragraph"><p>On va rectifier ça de ce pas !</p></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_ajout_de_retrofit">Ajout de Retrofit</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Refonte des permissions
+Retrofit est une librairie REST pour Android.
+</span>
+<ul class="">
+<li>
+<span>
+Pour publier votre API
 </span>
 </li>
 <li>
 <span>
-Android Pay (RIP Google Wallet)
+Pour appeler une autre API
 </span>
+</li>
+</ul>
 </li>
 <li>
 <span>
-Fingerprints
+Pour l&#8217;ajouter, on ajoute la dépendance gradle dans le build.gradle du module :
 </span>
 </li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="n">compile</span> <span class="s1">&#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span>
+</pre></div></div></div>
+<ul class="">
 <li>
 <span>
-Doze (veille prolongée)
-</span>
-</li>
-<li>
-<span>
-USB type C
+Attention, il vous faudra sûrement mettre à jour la configuration gradle
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_brillo">Brillo</h1>
+<h1 id="_façade">Façade</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-OS pour IoT
+Regardez brièvement les exemples de Retrofit
 </span>
 </li>
 <li>
 <span>
-Weave (prototocole de communication)
+Baladez vous un peu sur l&#8217;API Github : <a href="http://api.github.com">http://api.github.com</a>
+</span>
+</li>
+<li>
+<span>
+Créez votre surcouche pour les données dont on a besoin, on se contente du détail d&#8217;un repository et des données utilisateur pour l&#8217;instant (un seul appel REST)
+</span>
+</li>
+<li>
+<span>
+Charger les différents champs avec les valeurs remontées par votre API REST.
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_google_photo">Google Photo</h1>
+<h1 id="_ajout_d_8217_une_image_depuis_une_url">Ajout d&#8217;une image depuis une URL</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-stockage illimité
+Lancer l&#8217;appel en asynchrone pour récupérer l&#8217;image :
+</span>
+<ul class="">
+<li>
+<span>
+Pour ce faire, on implémente une AsyncTask
 </span>
 </li>
 <li>
 <span>
-photos en 16Mp
+Dans doInBackground on récupère l&#8217;appel de l&#8217;URL où se trouve l&#8217;image dans un InputStream
 </span>
 </li>
 <li>
 <span>
-Vidéos en 1080p
+On retourne ensuite notre Bitmap créé avec la classe BitmapFactory
 </span>
+</li>
+</ul>
 </li>
 <li>
 <span>
-Nouvelle application photos
+Il ne reste plus qu'à valoriser le contenu de notre image dans la vue.
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_cardboard">Cardboard</h1>
+<h1 id="_si_vous_avez_du_mal">Si vous avez du mal</h1>
 <div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Jump
-</span>
-</li>
-<li>
-<span>
-Intégré dans Youtube
-</span>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DownloadImageTask</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Void</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="n">ImageView</span> <span class="n">bmImage</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">DownloadImageTask</span><span class="o">(</span><span class="n">ImageView</span> <span class="n">bmImage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bmImage</span> <span class="o">=</span> <span class="n">bmImage</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="n">Bitmap</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">urls</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">urldisplay</span> <span class="o">=</span> <span class="n">urls</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">Bitmap</span> <span class="n">mIcon11</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">URL</span><span class="o">(</span><span class="n">urldisplay</span><span class="o">).</span><span class="na">openStream</span><span class="o">();</span>
+            <span class="n">mIcon11</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&quot;Error&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">mIcon11</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">bmImage</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div></div></div>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_drivers_manquants">Drivers manquants</h1>
+<h1 id="_petite_notes">Petite notes</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Pour le T3 :
+On utilise une AsyncTask pour ne surtout pas bloquer le thread UI
 </span>
-<ul class="">
+</li>
 <li>
 <span>
-<a href="http://developer.sonymobile.com/downloads/drivers/xperia-z3-driver/">http://developer.sonymobile.com/downloads/drivers/xperia-z3-driver/</a>
+Si on bloquait le thread UI, toute l&#8217;application se figerait en attendant le chargement complet de l&#8217;image.
+</span>
+</li>
+<li>
+<span>
+Pensez à rajouter la permission d&#8217;accès à internet pour appeler une URL.
 </span>
 </li>
 </ul>
-</li>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.INTERNET&quot;</span> <span class="nt">/&gt;</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_remarque_8230">Remarque&#8230;</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
 <li>
 <span>
-Pour le S3 :
+Personne n&#8217;a détecté quelque chose qui n&#8217;allait pas sur l&#8217;appel à l&#8217;API Github par Retrofit ?
 </span>
 <ul class="">
 <li>
 <span>
-<a href="http://developer.samsung.com/technical-doc/view.do?v=T000000117">http://developer.samsung.com/technical-doc/view.do?v=T000000117</a>
+Quid des problèmes de réseau ?
+</span>
+</li>
+<li>
+<span>
+Quid si Github met du temps à répondre ?
+</span>
+</li>
+<li>
+<span>
+Quid s&#8217;il ne répond pas ?
 </span>
 </li>
 </ul>
