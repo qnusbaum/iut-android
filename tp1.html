@@ -3858,7 +3858,7 @@ API lvl 22 en target
 </li>
 <li>
 <span>
-Utilisez encore une fois Master/Detail
+Utilisez encore Blank Activity
 </span>
 </li>
 </ul>
@@ -3869,7 +3869,7 @@ Utilisez encore une fois Master/Detail
 <div class="sect1 slide">
 <h1 id="_réalisez_l_équivalent_de_cette_interface">Réalisez l'équivalent de cette interface</h1>
 <div class="sectionbody" style="max-width:45em">
-<div class="paragraph"><p>Modifiez le fichier fragment_item_detail.xml, votre interface doit ressembler à ça:</p></div>
+<div class="paragraph"><p>Modifiez le fichier de layout (dans res/layout), votre interface doit ressembler à ça:</p></div>
 <div class="paragraph"><p><span class="image">
 <img alt="Rendu Final TP1"
 src="data:image/jpeg;base64,
@@ -4349,6 +4349,11 @@ un background de couleur #656565
 Pour l&#8217;image, pour l&#8217;instant on la rajoute au répertoire de ressources
 </span>
 </li>
+<li>
+<span>
+Vous pouvez le faire en mode textuel en basculant de visualisation en bas de la fenêtre
+</span>
+</li>
 </ul>
 </div>
 </div>
@@ -4370,7 +4375,7 @@ Pour ce faire, on va appeler le code suivant dans l'événement clic qu&#8217;on
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">);</span>
 <span class="n">intent</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;https://github.com/vferries/iut-android&quot;</span><span class="o">));</span>
-<span class="n">getActivity</span><span class="o">().</span><span class="na">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
 </pre></div></div></div>
 </div>
 </div>
