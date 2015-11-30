@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.vincent.repodetail.rest.DummyGitHubService;
 import com.example.vincent.repodetail.rest.GitHubService;
 import com.example.vincent.repodetail.rest.Repository;
 
@@ -29,8 +30,7 @@ public class RepositoriesListActivity extends ListActivity {
         adapter = new RepositoryListAdapter(this, R.layout.repo_item);
         setListAdapter(adapter);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com").addConverterFactory(GsonConverterFactory.create()).build();
-        Call<List<Repository>> call = retrofit.create(GitHubService.class).getRepositoriesList(userName);
+        Call<List<Repository>> call = new DummyGitHubService().getRepositoriesList(userName);
         call.enqueue(new Callback<List<Repository>>() {
             @Override
             public void onResponse(Response<List<Repository>> response, Retrofit retrofit) {

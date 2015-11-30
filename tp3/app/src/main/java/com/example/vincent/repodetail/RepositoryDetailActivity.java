@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vincent.repodetail.rest.DummyGitHubService;
 import com.example.vincent.repodetail.rest.GitHubService;
 import com.example.vincent.repodetail.rest.Repository;
 
@@ -34,8 +35,7 @@ public class RepositoryDetailActivity extends Activity {
         final TextView repoUserNameTextView = (TextView) findViewById(R.id.repoUsername);
         final ImageView repoUserImage = (ImageView) findViewById(R.id.repoUserImage);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com").addConverterFactory(GsonConverterFactory.create()).build();
-        Call<Repository> call = retrofit.create(GitHubService.class).getRepositoryDetail(userName, repoName);
+        Call<Repository> call = new DummyGitHubService().getRepositoryDetail(userName, repoName);
         call.enqueue(new Callback<Repository>() {
             @Override
             public void onResponse(Response<Repository> response, Retrofit retrofit) {
