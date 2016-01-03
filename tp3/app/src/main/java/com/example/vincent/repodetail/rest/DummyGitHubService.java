@@ -1,6 +1,7 @@
 package com.example.vincent.repodetail.rest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class DummyGitHubService implements GitHubService {
 
     @Override
     public Call<List<Repository>> getRepositoriesList(@Path("owner") String username) {
-        return null;
+        return new DummyCall<List<Repository>>(new ArrayList<>(map.values()));
     }
 
     private class DummyCall<T> implements Call<T> {
