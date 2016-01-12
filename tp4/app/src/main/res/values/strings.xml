@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RepoDetail</string>
+    <string name="created_at">Created at : </string>
+</resources>
