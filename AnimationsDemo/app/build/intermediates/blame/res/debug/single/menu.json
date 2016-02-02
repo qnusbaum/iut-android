@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/menu/activity_layout_changes.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/menu/activity_layout_changes.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/menu/activity_screen_slide.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/menu/activity_screen_slide.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/menu/activity_crossfade.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/menu/activity_crossfade.xml"
+    }
+]

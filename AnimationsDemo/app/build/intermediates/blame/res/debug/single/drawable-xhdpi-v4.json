@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_action_info.png",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/drawable-xhdpi/ic_action_info.png"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_action_new.png",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/drawable-xhdpi/ic_action_new.png"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_action_photo.png",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/drawable-xhdpi/ic_action_photo.png"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_list_remove.png",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/drawable-xhdpi/ic_list_remove.png"
+    }
+]

@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/excerpt_content.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/excerpt_content.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/fragment_card_front.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/fragment_card_front.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_layout_changes.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_layout_changes.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/fragment_card_back.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/fragment_card_back.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/list_item_example.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/list_item_example.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_crossfade.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_crossfade.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/fragment_screen_slide_page.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/fragment_screen_slide_page.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_screen_slide.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_screen_slide.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_zoom.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_zoom.xml"
+    },
+    {
+        "merged": "/home/vferries/projects/iut-android/AnimationsDemo/app/build/intermediates/res/merged/debug/layout/activity_card_flip.xml",
+        "source": "/home/vferries/projects/iut-android/AnimationsDemo/app/src/main/res/layout/activity_card_flip.xml"
+    }
+]
