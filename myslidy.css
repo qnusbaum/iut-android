@@ -13,8 +13,8 @@ h1, h2 {
 }
 
 div.slide {
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 40px;
+	padding-right: 40px;
 }
 
 div.sectionbody {
