@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryDetailActivity extends AppCompatActivity {
     private String userName = "vferries";
@@ -34,7 +34,7 @@ public class RepositoryDetailActivity extends AppCompatActivity {
         Call<Repo> call = retrofit.create(GitHubService.class).getRepoDetail(userName, repoName);
         call.enqueue(new Callback<Repo>() {
             @Override
-            public void onResponse(Response<Repo> response, Retrofit retrofit) {
+            public void onResponse(Call<Repo> call, Response<Repo> response) {
                 Repo repo = response.body();
                 repoNameTextView.setText(repo.getName());
                 repoDescriptionTextView.setText(repo.getDescription());
@@ -44,7 +44,7 @@ public class RepositoryDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Repo> call, Throwable t) {
                 Log.e(this.getClass().getName(), t.getMessage());
             }
         });
