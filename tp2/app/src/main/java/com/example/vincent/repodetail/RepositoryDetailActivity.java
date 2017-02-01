@@ -13,50 +13,58 @@ import android.widget.TextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryDetailActivity extends AppCompatActivity {
-    private String userName = "vferries";
-    private String repoName = "iut-android";
+    private static String USERNAME = "vferries";
+    private static String REPONAME = "iut-android";
+    private TextView repoNameTextView;
+    private TextView repoDescriptionTextView;
+    private TextView createdAtTextView;
+    private TextView repoUsernameTextView;
+    private ImageView repoUserImageView;
+    private Button githubButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository_detail);
-        final TextView repoNameTextView = (TextView) findViewById(R.id.repoName);
-        final TextView repoDescriptionTextView = (TextView) findViewById(R.id.repoDescription);
-        final TextView repoCreatedAtTextView = (TextView) findViewById(R.id.repoCreatedAt);
-        final TextView repoUserNameTextView = (TextView) findViewById(R.id.repoUsername);
-        final ImageView repoUserImage = (ImageView) findViewById(R.id.repoUserImage);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com").addConverterFactory(GsonConverterFactory.create()).build();
-        Call<Repo> call = retrofit.create(GitHubService.class).getRepoDetail(userName, repoName);
-        call.enqueue(new Callback<Repo>() {
+        repoNameTextView = (TextView) findViewById(R.id.repoName);
+        repoDescriptionTextView = (TextView) findViewById(R.id.repoDescription);
+        createdAtTextView = (TextView) findViewById(R.id.createdAt);
+        repoUsernameTextView = (TextView) findViewById(R.id.repoUsername);
+        repoUserImageView = (ImageView) findViewById(R.id.repoUserImage);
+        githubButton = (Button) findViewById(R.id.githubButton);
+
+        GithubService service = new DummyGitHubService();
+        Call<Repository> repositoryCall = service.getRepoDetail(USERNAME, REPONAME);
+        repositoryCall.enqueue(new Callback<Repository>() {
             @Override
-            public void onResponse(Call<Repo> call, Response<Repo> response) {
-                Repo repo = response.body();
-                repoNameTextView.setText(repo.getName());
-                repoDescriptionTextView.setText(repo.getDescription());
-                repoCreatedAtTextView.setText(repo.getCreated_at());
-                repoUserNameTextView.setText(repo.getOwner().getLogin());
-                new DownloadImageTask(repoUserImage).execute(repo.getOwner().getAvatar_url());
+            public void onResponse(Call<Repository> call, Response<Repository> response) {
+                refreshView(response.body());
             }
 
             @Override
-            public void onFailure(Call<Repo> call, Throwable t) {
-                Log.e(this.getClass().getName(), t.getMessage());
+            public void onFailure(Call<Repository> call, Throwable t) {
+                Log.e("RepositoryDetail", "Failed to retrieve repository detail", t);
             }
         });
 
-        Button githubButton = (Button) findViewById(R.id.githubButton);
+    }
+
+    private void refreshView(final Repository repository) {
+        repoNameTextView.setText(repository.getName());
+        repoDescriptionTextView.setText(repository.getDescription());
+        createdAtTextView.setText("Created at " + repository.getCreated_at());
+        repoUsernameTextView.setText(repository.getOwner().getLogin());
         githubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://github.com/vferries/iut-android"));
+                intent.setData(Uri.parse(String.format("https://github.com/%s/%s", repository.getOwner().getLogin(), repository.getName())));
                 startActivity(intent);
             }
         });
+        new DownloadImageTask(repoUserImageView).execute(repository.getOwner().getAvatar_url());
     }
 }
