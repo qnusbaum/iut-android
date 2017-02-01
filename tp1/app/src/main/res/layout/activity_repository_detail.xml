@@ -27,7 +27,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Created at : "
         android:layout_margin="10dp"
-        android:id="@+id/textView" />
+        android:id="@+id/createdAt" />
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
