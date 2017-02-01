@@ -13,6 +13,7 @@ import android.widget.TextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RepositoryDetailActivity extends AppCompatActivity {
     private static String USERNAME = "vferries";
@@ -35,6 +36,13 @@ public class RepositoryDetailActivity extends AppCompatActivity {
         repoUsernameTextView = (TextView) findViewById(R.id.repoUsername);
         repoUserImageView = (ImageView) findViewById(R.id.repoUserImage);
         githubButton = (Button) findViewById(R.id.githubButton);
+
+        //FIXME Problèmes de connexion API Github
+        /*Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.github.com/")
+                .build();
+        GithubService service = retrofit.create(GithubService.class);
+        */
 
         GithubService service = new DummyGitHubService();
         Call<Repository> repositoryCall = service.getRepoDetail(USERNAME, REPONAME);
