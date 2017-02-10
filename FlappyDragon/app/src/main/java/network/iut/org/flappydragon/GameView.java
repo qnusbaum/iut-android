@@ -2,6 +2,7 @@ package network.iut.org.flappydragon;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -11,13 +12,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameView extends SurfaceView implements Runnable {
+    public static final long UPDATE_INTERVAL = 50; // = 20 FPS
     private SurfaceHolder holder;
     private boolean paused = true;
-    private Player player;
-
-    public static final long UPDATE_INTERVAL = 50; // = 20 FPS
     private Timer timer = new Timer();
     private TimerTask timerTask;
+    private Player player;
     private Background background;
 
     public GameView(Context context) {
@@ -25,6 +25,12 @@ public class GameView extends SurfaceView implements Runnable {
         player = new Player(context, this);
         background = new Background(context, this);
         holder = getHolder();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GameView.this.run();
+            }
+        }).start();
     }
 
     @Override
@@ -85,13 +91,18 @@ public class GameView extends SurfaceView implements Runnable {
             try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
         }
         Canvas canvas = holder.lockCanvas();
-        drawCanvas(canvas);
+        if (canvas != null) {
+            drawCanvas(canvas);
+        }
         holder.unlockCanvasAndPost(canvas);
     }
 
     private void drawCanvas(Canvas canvas) {
         background.draw(canvas);
         player.draw(canvas);
+        if (paused) {
+            canvas.drawText("PAUSED", canvas.getWidth() / 2, canvas.getHeight() / 2, new Paint());
+        }
     }
 
 }

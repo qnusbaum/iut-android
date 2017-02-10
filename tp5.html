@@ -3824,14 +3824,14 @@ Fluidité
 </li>
 <li>
 <span>
-Un clone de Flappy Bird
+Le jeu de votre choix
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_attention_changement">ATTENTION CHANGEMENT</h1>
+<h1 id="_attention">ATTENTION</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
@@ -3863,7 +3863,7 @@ L&#8217;originalité est un plus
 <ul class="">
 <li>
 <span>
-Si vous avez besoin d&#8217;images allez faire un tour sur  <a href="http://opengameart.org/">http://opengameart.org/</a>
+Si vous avez besoin d&#8217;images, de sons, allez faire un tour sur  <a href="http://opengameart.org/">http://opengameart.org/</a>
 </span>
 </li>
 <li>
@@ -3886,6 +3886,11 @@ On va charger une base toute faite afin d'éviter de perdre trop de temps sur le
 <li>
 <span>
 Chargez le projet FlappyDragon
+</span>
+</li>
+<li>
+<span>
+Renommez le à votre sauce
 </span>
 </li>
 <li>
@@ -3926,44 +3931,22 @@ On va utiliser le concept de sprites, petites zones rectangulaires qu&#8217;on v
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_personnage_et_mouvement">Personnage et mouvement</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-On souhaite afficher notre personnage et le faire chuter régulièrement
-</span>
-</li>
-<li>
-<span>
-Lors d&#8217;un appui, on veut que le personnage remonte un peu
-</span>
-</li>
-<li>
-<span>
-On veut qu&#8217;il descende de plus en plus vite
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
 <h1 id="_menu_et_options">Menu et options</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Rajoutez une Activité principale qui permette de lancer le jeu
+Rajoutez une Activité principale qui affiche un écran d&#8217;accueil
 </span>
 </li>
 <li>
 <span>
-Ajoutez un écran de type <em>About</em> avec les informations sur votre binôme
+Ajoutez un écran de type <em>About</em> avec les informations sur votre groupe de travail (seul ou binôme)
 </span>
 </li>
 <li>
 <span>
-Ajoutez un menu avec quelques options (vitesse max, vitesse de scrolling&#8230;)
+Ajoutez un menu avec quelques options  qui correspondent à celles de votre jeu (vitesse max, vitesse de scrolling&#8230;)
 </span>
 <ul class="">
 <li>
@@ -3977,17 +3960,41 @@ Ces options doivent persister à un nouveau lancement de l&#8217;application
 </div>
 </div>
 <div class="sect1 slide">
+<h1 id="_personnage_et_mouvement">Personnage et mouvement</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Mettez au point un moyen de faire se déplacer votre personnage
+</span>
+<ul class="">
+<li>
+<span>
+(comme un appui pour faire remonter par exemple)
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Vous pouvez rajouter la gestion de la gravité (déjà fait dans l&#8217;exemple)
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
 <h1 id="_collisions">Collisions</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Faites en sorte que l&#8217;on perde si le personnage touche le sol ou le plafond.
+Implémentez des collisions
 </span>
 </li>
 <li>
 <span>
-Affichez au moins un message dans ce cas
+Affichez au moins un message en cas de collision
 </span>
 </li>
 <li>
@@ -4075,12 +4082,17 @@ Ajouter des obstacles et gérez les collisions
 <ul class="">
 <li>
 <span>
-Ajoutez des points chaque fois qu&#8217;un obstacle est passé
+Ajoutez un système de score
 </span>
 </li>
 <li>
 <span>
 Affichez le score actuel
+</span>
+</li>
+<li>
+<span>
+Gardez trace des meilleurs scores
 </span>
 </li>
 </ul>
