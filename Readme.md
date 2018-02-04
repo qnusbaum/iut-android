@@ -1,1 +1,1 @@
-Le cours en ligne [ici](https://vferries.github.io/iut-android/)
+Le cours en ligne [ici](https://vferries.github.io/iut-android/index.html)
