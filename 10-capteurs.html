@@ -3900,7 +3900,7 @@ On le récupère avec :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">SENSOR_SERVICE</span><span class="o">)</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">SENSOR_SERVICE</span><span class="o">)</span>
 </pre></div></div></div>
 <ul class="">
 <li>
@@ -3910,7 +3910,7 @@ On accède à un capteur particulier avec :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">SensorManager</span><span class="o">.</span><span class="na">getDefaultSensor</span><span class="o">(</span><span class="kt">int</span> <span class="n">type</span><span class="o">)</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">SensorManager</span><span class="o">.</span><span class="na">getDefaultSensor</span><span class="o">(</span><span class="kt">int</span> <span class="n">type</span><span class="o">)</span>
 </pre></div></div></div>
 </div>
 </div>
@@ -3919,15 +3919,15 @@ On accède à un capteur particulier avec :
 <div class="sectionbody" style="max-width:45em">
 <div class="paragraph"><p>Accéléromètre :</p></div>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_ACCELEROMETER</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_ACCELEROMETER</span>
 </pre></div></div></div>
 <div class="paragraph"><p>Champ magnétique :</p></div>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_MAGNETIC_FIELD</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_MAGNETIC_FIELD</span>
 </pre></div></div></div>
 <div class="paragraph"><p>Pression :</p></div>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_PRESSURE</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_PRESSURE</span>
 </pre></div></div></div>
 </div>
 </div>
@@ -3949,7 +3949,7 @@ D&#8217;un changement de précision :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">onAccuracyChanged</span><span class="o">(</span><span class="n">Sensor</span> <span class="n">sensor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">accuracy</span><span class="o">)</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onAccuracyChanged</span><span class="o">(</span><span class="n">Sensor</span> <span class="n">sensor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">accuracy</span><span class="o">)</span>
 </pre></div></div></div>
 <ul class="">
 <li>
@@ -3959,7 +3959,7 @@ D&#8217;un changement de valeur :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">onSensorChanged</span><span class="o">(</span><span class="n">SensorEvent</span> <span class="n">event</span><span class="o">)</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onSensorChanged</span><span class="o">(</span><span class="n">SensorEvent</span> <span class="n">event</span><span class="o">)</span>
 </pre></div></div></div>
 </div>
 </div>
@@ -3981,7 +3981,7 @@ Pour s&#8217;enregistrer :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">registerListener</span><span class="o">(</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">registerListener</span><span class="o">(</span>
         <span class="n">SensorEventListener</span> <span class="n">listener</span><span class="o">,</span>
         <span class="n">Sensor</span> <span class="n">sensor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rate</span><span class="o">)</span>
 </pre></div></div></div>
@@ -3993,7 +3993,7 @@ Pour se désenregistrer :
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">unregisterListener</span><span class="o">(</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">unregisterListener</span><span class="o">(</span>
         <span class="n">SensorEventListener</span> <span class="n">listener</span><span class="o">,</span>
         <span class="n">Sensor</span> <span class="n">sensor</span><span class="o">)</span>
 </pre></div></div></div>

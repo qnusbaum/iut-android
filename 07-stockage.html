@@ -4,7 +4,7 @@
 <head>
 <title>Android</title>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="copyright" content="Copyright &#169; Listes et Adapters" />
+<meta name="copyright" content="Copyright &#169; Stockage des données et divers" />
 <meta name="generator" content="AsciiDoc 8.6.9" />
 <style type="text/css">
 /*
@@ -3805,581 +3805,465 @@ setTimeout(w3c_slidy.hide_slides, 50);
 <body class="article" style="max-width:45em">
 <div id="header" class="slide">
 <h1>Android</h1>
-<span id="author">Listes et Adapters</span><br />
+<span id="author">Stockage des données et divers</span><br />
 <span id="revdate"><link rel="stylesheet" href="myslidy.css" type="text/css" /></span>
 </div>
 <div class="sect1 slide">
-<h1 id="_les_listes">Les Listes</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="paragraph"><p>Utilisation des ListView et ExpendableListView.</p></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_la_problématique">La problématique</h1>
+<h1 id="_persistance">Persistance</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-On souhaite afficher une liste d'éléments
+On a parfois besoin de stocker un état même après la fermeture de l&#8217;application
 </span>
 </li>
 <li>
 <span>
-On veut pouvoir agir sur ces éléments
+On veut pouvoir gérer les préférences utilisateur
 </span>
 </li>
 <li>
 <span>
-On veut de bonnes performances et un encombrement mémoire faible
-</span>
-</li>
-<li>
-<span>
-On veut pouvoir modifier la liste des éléments à la volée
+On veut faire des requêtes sur des données persistantes
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_scrolling">Scrolling</h1>
+<h1 id="_shared_preferences">Shared Preferences</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-La méthode de parcours préférée sur le mobile est le vertical
+Utilisé surtout pour conserver les préférences utilisateur
 </span>
 </li>
 <li>
 <span>
-Pour afficher un ensemble d'éléments on utilise :
-</span>
-<ul class="">
-<li>
-<span>
-Le scrolling
+Stockage transparent dans un fichier XML
 </span>
 </li>
 <li>
 <span>
-La ScrollView quand les vues sont connues
-</span>
-</li>
-<li>
-<span>
-La ListView quand les éléments sont dynamiques
-</span>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_fonctionnement">Fonctionnement</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-La ListView connait :
-</span>
-<ul class="">
-<li>
-<span>
-le nombre de vues qu&#8217;elle doit gérer
-</span>
-</li>
-<li>
-<span>
-le nombre de vues qu&#8217;elle peut afficher en même temps
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-Le probléme :
-</span>
-<ul class="">
-<li>
-<span>
-Comment gérer l'écart entre les deux nombres ?
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-La solution :
-</span>
-<ul class="">
-<li>
-<span>
-gérer une liste de vues "en attente"
-</span>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_scrapview">ScrapView</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="paragraph"><p><span class="image">
-<img alt="ScrapView"
-src="data:image/jpeg;base64,
-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
-f8KysV0o/BdtuW9vw9I+NdMjAiIeF+2K2RW7Pw3d3ZXtj4Qt0i0HknIdd5Kn5KIzsmpm6KOYgt5U
-KoKvjMEOHaQFoJlc3MIfDp5JXFKxR5yKU+ZUeZUXNUXNU6UeZbBVfnWwVT5lRJuAtgFT8iHcAAb0
-D7qH4nSEIwTC8F6peqXqkMQXH4WyX/PfKphxBmivXL1yDA9JAMG/AD7iCxdfwii2AQnP9E5/onP9
-E5/onP8ARN7CLjyFLj5qWGhQdVvPMQaO5ipF10+XmEVbXvl75BidD2kTbRfkQAtaST83lJfMUUES
-kCFgodBSg+RTmRuAU22cKcXAHdAlnSACawRAZ/dOzXFyIjdbApugM556kSpUXIIsI+Twqvk8Kt5P
-Cn6CMuAYxBbRK//aAAwDAQACAAMAAAAQkkkkkkkkAkgkAEEEkgEEkkkgAkAkAkAEAgkkkkkkkkgg
-AggAgAEEAEkkkkEEkgAkggkgkkkkkkkkkkgkkkkkkkkkEEAEgEkkkkkkggkkkkkkkkgkkEEgkggg
-EkkgEEgkkgEkkgkgkkkkkkAgkkgkkkkkkkkEkEkkgkkkkkkkkgkkkkkkEkkkkEkAEgAEEkkkgAkE
-AgkkEkAAkkkkkkAEgkAEggAAAgkkkkgAgkkkkkkkkkkkkkkgEkgkkgAkkEAAAkkkgAEkEAAggAkA
-kkkkkAkkkkkkkkkkkkkkkkggEgAAAAAAAEkkkkgEkkkkkkkkkkkkkkkkgEgEkEgkkAgAkkkkkkkk
-kkkkkkkkkkkkkkkAkAkkgEEEAggkEEkEkAEggkkkkkkkkkkkgkkkkkkkkkkggAAAAAAAAAAkkkkk
-kkkkkkgkEEAEEkkkkkEgkkkgkkkEkAkkkkkkkkkkggEgAAAAAkkEEEEkkkEkkkEkEkkkkkkkkkgA
-EEgggAAkkEEgEEkkkEkkgkAkkkkkkkkkgAEkkkkkkkkAEggAAAAAAAAAAkkkkkkkkkkgkAgEkkAE
-kEgggkEkkkEkkgkAkkkkkkkkgkkkkkkkkkkgkAggAAAAAAAAAEkkkkkkkkgkEAkEAAAkkAkgkAAA
-EkkAAAAAkkkkkkkkggEAAAAAAkkkkkEAAAAAEgAAAEkkkkkkkkgAEgggAkAEkEkkkgAAAAAAAAAE
-kkkkkkkkgAEkkkkkkkkEkkkEgkkAkAAAEgkkkkkkkkkgEEkEEAEkkEkkkkkkkkkkkkkkkkkkkkkk
-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" />
-</span></p></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_pattern_viewholder">Pattern ViewHolder</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Permet d'éviter d&#8217;appeler plusieurs fois findViewById
-</span>
-</li>
-<li>
-<span>
-On commence par définir un ViewHolderItem, avec les champs correspondants aux éléments d&#8217;interface auxquels on voudra accéder :
+Couples clé/valeur
 </span>
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">static</span> <span class="kd">class</span> <span class="nc">ViewHolderItem</span> <span class="o">{</span>
-    <span class="n">TextView</span> <span class="n">textViewItem</span><span class="o">;</span>
-    <span class="n">TextView</span> <span class="n">textViewItem2</span><span class="o">;</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">();</span>
+<span class="n">SharedPreferences</span> <span class="n">sharedPref</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getSharedPreferences</span><span class="o">(</span>
+        <span class="o">[</span><span class="n">FILE_NAME</span><span class="o">],</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_shared_preferences_2">Shared Preferences</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+On peut écrire dedans :
+</span>
+</li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">SharedPreferences</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPreferences</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+<span class="n">SharedPreferences</span><span class="o">.</span><span class="na">Editor</span> <span class="n">editor</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="na">edit</span><span class="o">();</span>
+<span class="n">editor</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="s">&quot;saved_score&quot;</span><span class="o">,</span> <span class="n">newHighScore</span><span class="o">);</span>
+<span class="n">editor</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Ou y lire :
+</span>
+</li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">SharedPreferences</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPreferences</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>
+<span class="kt">long</span> <span class="n">highScore</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&quot;saved_score&quot;</span><span class="o">,</span> <span class="n">defaultValue</span><span class="o">);</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_fichiers">Fichiers</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Stockage dans la mémoire interne ou externe (SD)
+</span>
+<ul class="">
+<li>
+<span>
+Attention, la carte SD n&#8217;est pas toujours présente
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+API Java classique :
+</span>
+<ul class="">
+<li>
+<span>
+File
+</span>
+</li>
+<li>
+<span>
+Input et Output Streams
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Attention aux droits d&#8217;accès
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_fichiers_2">Fichiers</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Chaque application a son dossier privé :
+</span>
+<ul class="">
+<li>
+<span>
+/Android/data/&lt;package_name&gt;/files/
+</span>
+</li>
+<li>
+<span>
+sous-dossiers :
+</span>
+<ul class="">
+<li>
+<span>
+cache
+</span>
+</li>
+<li>
+<span>
+music
+</span>
+</li>
+<li>
+<span>
+ringtones&#8230;
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Modes d'écriture : MODE_PRIVATE, MODE_APPEND, MODE_WORLD_READABLE, MODE_WORLD_WRITEABLE
+</span>
+</li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">Context</span><span class="o">.</span><span class="na">getCacheDir</span><span class="o">()</span> <span class="o">+</span> <span class="n">FILENAME</span><span class="o">;</span>
+<span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">openFileOutput</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_sqlite">SQLite</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Une base de données SQL allégée
+</span>
+</li>
+<li>
+<span>
+API assez spécifique à base de Cursor
+</span>
+</li>
+<li>
+<span>
+SQLiteOpenHelper
+</span>
+<ul class="">
+<li>
+<span>
+Cycle de vie
+</span>
+</li>
+<li>
+<span>
+Versions de base
+</span>
+</li>
+<li>
+<span>
+méthodes db.insert, update, delete, query et executeSQL
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_sqlite_2">SQLite</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySQLiteDB</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLE_BOOKS</span> <span class="o">=</span> <span class="s">&quot;table_books&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_ID</span> <span class="o">=</span> <span class="s">&quot;ID&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_ISBN</span> <span class="o">=</span> <span class="s">&quot;ISBN&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_TITLE</span> <span class="o">=</span> <span class="s">&quot;Title&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATE_BDD</span> <span class="o">=</span> <span class="s">&quot;CREATE TABLE &quot;</span> <span class="o">+</span> <span class="n">TABLE_BOOKS</span> <span class="o">+</span> <span class="s">&quot; (&quot;</span>
+        <span class="o">+</span> <span class="n">COL_ID</span> <span class="o">+</span> <span class="s">&quot; INTEGER PRIMARY KEY AUTOINCREMENT, &quot;</span> <span class="o">+</span> <span class="n">COL_ISBN</span> <span class="o">+</span> <span class="s">&quot; TEXT NOT NULL, &quot;</span>
+        <span class="o">+</span> <span class="n">COL_TITLE</span> <span class="o">+</span> <span class="s">&quot; TEXT NOT NULL);&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">MaBaseSQLite</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">CREATE_BDD</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldVersion</span><span class="o">,</span> <span class="kt">int</span> <span class="n">newVersion</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Do your upgrade here</span>
+        <span class="o">}</span>
 <span class="o">}</span>
 </pre></div></div></div>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_pattern_viewholder_2">Pattern ViewHolder</h1>
+<h1 id="_sqlite_3">SQLite</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Dans la méthode getView, on se sert alors de ce ViewHolder :
-</span>
-<ul class="">
-<li>
-<span>
-On ne fait les findViewById qu&#8217;une fois
-</span>
-</li>
-<li>
-<span>
-On n&#8217;a plus qu'à valoriser nos éléments
+On l&#8217;instancie :
 </span>
 </li>
 </ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">MySQLiteDB</span> <span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MySQLiteDB</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">NOM_BDD</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">VERSION_BDD</span><span class="o">);</span>
+<span class="n">SQLiteDatabase</span> <span class="n">database</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Cursor :
+</span>
+</li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">Cursor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">TABLE_BOOKS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span>
+        <span class="n">COL_ID</span><span class="o">,</span> <span class="n">COL_ISBN</span><span class="o">,</span> <span class="n">COL_TITLE</span>
+<span class="o">},</span> <span class="n">COL_TITLE</span> <span class="o">+</span> <span class="s">&quot; LIKE \&quot;&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span><span class="s">&quot;\&quot;&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Update :
+</span>
+</li>
+</ul>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COL_ISBN</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getIsbn</span><span class="o">());</span>
+<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COL_TITLE</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getTitre</span><span class="o">());</span>
+<span class="k">return</span> <span class="n">bdd</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">TABLE_BOOKS</span><span class="o">,</span> <span class="n">values</span><span class="o">,</span> <span class="n">COL_ID</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span><span class="n">id</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_divers">Divers</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Des tonnes de librairies Java utilisables
+</span>
 </li>
 <li>
 <span>
-On utilise les méthodes <em>getTag</em> et <em>setTag</em> pour mémoriser et récupérer notre ViewHolder
+Une grosse communauté et des projets qui répondent aux problèmes récurrents (Event Bus, REST&#8230;)
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_pattern_viewholder_3">Pattern ViewHolder</h1>
+<h1 id="_capteurs">Capteurs</h1>
 <div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Accès depuis le SensorManager depuis le Context
+</span>
+</li>
+</ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="n">View</span> <span class="n">convertView</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">ViewHolderItem</span> <span class="n">viewHolder</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">convertView</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
-        <span class="n">LayoutInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">context</span><span class="o">).</span><span class="na">getLayoutInflater</span><span class="o">();</span>
-        <span class="n">convertView</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">item</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-        <span class="n">viewHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewHolderItem</span><span class="o">();</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">textViewItem</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textViewItem</span><span class="o">);</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">textViewItem2</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textViewItem2</span><span class="o">);</span>
-        <span class="n">convertView</span><span class="o">.</span><span class="na">setTag</span><span class="o">(</span><span class="n">viewHolder</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="n">viewHolder</span> <span class="o">=</span> <span class="o">(</span><span class="n">ViewHolderItem</span><span class="o">)</span> <span class="n">convertView</span><span class="o">.</span><span class="na">getTag</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="n">getItem</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">textViewItem</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">text</span><span class="o">);</span>
-        <span class="n">viewHolder</span><span class="o">.</span><span class="na">textViewItem2</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">text2</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="n">convertView</span><span class="o">;</span>
-<span class="o">}</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">mSensorManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">SensorManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">SENSOR_SERVICE</span><span class="o">);</span>
 </pre></div></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Warning" src="data:image/png;base64,
+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
+hBi7VB50VQAAAABJRU5ErkJggg==" />
+</td>
+<td class="content">Vérifier la présence ou absence du capteur, n&#8217;appeler que si nécessaire et libérer le capteur</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_android_assets_studio">Android Assets Studio</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Par un Googler : Roman Nurik
+</span>
+<ul class="">
+<li>
+<span>
+Site : <a href="http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html">http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Fournit différents outils
+</span>
+<ul class="">
+<li>
+<span>
+Génération d&#8217;icônes
+</span>
+</li>
+<li>
+<span>
+Génération d&#8217;image de terminaux incrustées
+</span>
+</li>
+<li>
+<span>
+Online Nine-patch generator
+</span>
+</li>
+<li>
+<span>
+Générateur de thèmes
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_librairies">Librairies</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Android support library
+</span>
+</li>
+<li>
+<span>
+NineOldAndroids
+</span>
+<ul class="">
+<li>
+<span>
+Jake Wharton
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Retrofit
+</span>
+</li>
+<li>
+<span>
+Picasso
+</span>
+</li>
+<li>
+<span>
+ButterKnife
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_et_sinon_8230">Et sinon&#8230;</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="paragraph"><p><a href="https://github.com/codepath/android_guides/wiki/Must-Have-Libraries">https://github.com/codepath/android_guides/wiki/Must-Have-Libraries</a></p></div>
 </div>
 </div>
 </body>

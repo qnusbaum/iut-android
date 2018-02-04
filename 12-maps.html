@@ -4,7 +4,7 @@
 <head>
 <title>Android</title>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="copyright" content="Copyright &#169; Stockage des données et divers" />
+<meta name="copyright" content="Copyright &#169; Google Maps" />
 <meta name="generator" content="AsciiDoc 8.6.9" />
 <style type="text/css">
 /*
@@ -3805,465 +3805,539 @@ setTimeout(w3c_slidy.hide_slides, 50);
 <body class="article" style="max-width:45em">
 <div id="header" class="slide">
 <h1>Android</h1>
-<span id="author">Stockage des données et divers</span><br />
+<span id="author">Google Maps</span><br />
 <span id="revdate"><link rel="stylesheet" href="myslidy.css" type="text/css" /></span>
 </div>
 <div class="sect1 slide">
-<h1 id="_persistance">Persistance</h1>
+<h1 id="_google_maps_api">Google Maps API</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-On a parfois besoin de stocker un état même après la fermeture de l&#8217;application
+Nécessite que l&#8217;appareil soit compatible Play Store
 </span>
 </li>
 <li>
 <span>
-On veut pouvoir gérer les préférences utilisateur
+Il faut installer les Play Services, dans extras :
+</span>
+<ul class="">
+<li>
+<span>
+Android Support Repository
 </span>
 </li>
 <li>
 <span>
-On veut faire des requêtes sur des données persistantes
+Android Support Library
+</span>
+</li>
+<li>
+<span>
+Google Repository
+</span>
+</li>
+<li>
+<span>
+Google Play services
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Dépendance dans le fichier <em>build.gradle</em>
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_shared_preferences">Shared Preferences</h1>
+<h1 id="_pour_bien_démarrer">Pour bien démarrer</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Utilisé surtout pour conserver les préférences utilisateur
+Android Studio propose un quick start
+</span>
+<ul class="">
+<li>
+<span>
+File &#8594; New Project
 </span>
 </li>
 <li>
 <span>
-Stockage transparent dans un fichier XML
+Choisir Google Maps Activity
 </span>
+</li>
+</ul>
 </li>
 <li>
 <span>
-Couples clé/valeur
+Cela instancie une Activity, un fichier de layout et un fichier de ressources
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_le_layout">Le layout</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Il contient notre fragment dans lequel sera affiché la carte :
 </span>
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">();</span>
-<span class="n">SharedPreferences</span> <span class="n">sharedPref</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getSharedPreferences</span><span class="o">(</span>
-        <span class="o">[</span><span class="n">FILE_NAME</span><span class="o">],</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="nt">&lt;fragment</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">xmlns:map=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+    <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/map&quot;</span>
+    <span class="na">android:name=</span><span class="s">&quot;com.google.android.gms.maps.SupportMapFragment&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">tools:context=</span><span class="s">&quot;maps.android.iut.org.mapsdemo.MapsActivity&quot;</span> <span class="nt">/&gt;</span>
 </pre></div></div></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_shared_preferences_2">Shared Preferences</h1>
-<div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-On peut écrire dedans :
-</span>
-</li>
-</ul>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">SharedPreferences</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPreferences</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-<span class="n">SharedPreferences</span><span class="o">.</span><span class="na">Editor</span> <span class="n">editor</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="na">edit</span><span class="o">();</span>
-<span class="n">editor</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="s">&quot;saved_score&quot;</span><span class="o">,</span> <span class="n">newHighScore</span><span class="o">);</span>
-<span class="n">editor</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-Ou y lire :
-</span>
-</li>
-</ul>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">SharedPreferences</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getPreferences</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>
-<span class="kt">long</span> <span class="n">highScore</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&quot;saved_score&quot;</span><span class="o">,</span> <span class="n">defaultValue</span><span class="o">);</span>
-</pre></div></div></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_fichiers">Fichiers</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Stockage dans la mémoire interne ou externe (SD)
-</span>
-<ul class="">
-<li>
-<span>
-Attention, la carte SD n&#8217;est pas toujours présente
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-API Java classique :
-</span>
-<ul class="">
-<li>
-<span>
-File
-</span>
-</li>
-<li>
-<span>
-Input et Output Streams
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-Attention aux droits d&#8217;accès
+On note l&#8217;utilisation de la classe <em>SupportMapFragment</em>
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_fichiers_2">Fichiers</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Chaque application a son dossier privé :
-</span>
-<ul class="">
-<li>
-<span>
-/Android/data/&lt;package_name&gt;/files/
-</span>
-</li>
-<li>
-<span>
-sous-dossiers :
-</span>
-<ul class="">
-<li>
-<span>
-cache
-</span>
-</li>
-<li>
-<span>
-music
-</span>
-</li>
-<li>
-<span>
-ringtones&#8230;
-</span>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<span>
-Modes d'écriture : MODE_PRIVATE, MODE_APPEND, MODE_WORLD_READABLE, MODE_WORLD_WRITEABLE
-</span>
-</li>
-</ul>
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">Context</span><span class="o">.</span><span class="na">getCacheDir</span><span class="o">()</span> <span class="o">+</span> <span class="n">FILENAME</span><span class="o">;</span>
-<span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">openFileOutput</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-</pre></div></div></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_sqlite">SQLite</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Une base de données SQL allégée
-</span>
-</li>
-<li>
-<span>
-API assez spécifique à base de Cursor
-</span>
-</li>
-<li>
-<span>
-SQLiteOpenHelper
-</span>
-<ul class="">
-<li>
-<span>
-Cycle de vie
-</span>
-</li>
-<li>
-<span>
-Versions de base
-</span>
-</li>
-<li>
-<span>
-méthodes db.insert, update, delete, query et executeSQL
-</span>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_sqlite_2">SQLite</h1>
+<h1 id="_l_8217_activity">L&#8217;activity</h1>
 <div class="sectionbody" style="max-width:45em">
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySQLiteDB</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLE_BOOKS</span> <span class="o">=</span> <span class="s">&quot;table_books&quot;</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_ID</span> <span class="o">=</span> <span class="s">&quot;ID&quot;</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_ISBN</span> <span class="o">=</span> <span class="s">&quot;ISBN&quot;</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">COL_TITLE</span> <span class="o">=</span> <span class="s">&quot;Title&quot;</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CREATE_BDD</span> <span class="o">=</span> <span class="s">&quot;CREATE TABLE &quot;</span> <span class="o">+</span> <span class="n">TABLE_BOOKS</span> <span class="o">+</span> <span class="s">&quot; (&quot;</span>
-        <span class="o">+</span> <span class="n">COL_ID</span> <span class="o">+</span> <span class="s">&quot; INTEGER PRIMARY KEY AUTOINCREMENT, &quot;</span> <span class="o">+</span> <span class="n">COL_ISBN</span> <span class="o">+</span> <span class="s">&quot; TEXT NOT NULL, &quot;</span>
-        <span class="o">+</span> <span class="n">COL_TITLE</span> <span class="o">+</span> <span class="s">&quot; TEXT NOT NULL);&quot;</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="nf">MaBaseSQLite</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">CREATE_BDD</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldVersion</span><span class="o">,</span> <span class="kt">int</span> <span class="n">newVersion</span><span class="o">)</span> <span class="o">{</span>
-                <span class="c1">// Do your upgrade here</span>
-        <span class="o">}</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapsActivity</span> <span class="kd">extends</span> <span class="n">FragmentActivity</span> <span class="kd">implements</span> <span class="n">OnMapReadyCallback</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">GoogleMap</span> <span class="n">mMap</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_maps</span><span class="o">);</span>
+        <span class="c1">// Obtain the SupportMapFragment and get notified when the map is ready to be used.</span>
+        <span class="n">SupportMapFragment</span> <span class="n">mapFragment</span> <span class="o">=</span> <span class="o">(</span><span class="n">SupportMapFragment</span><span class="o">)</span> <span class="n">getSupportFragmentManager</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">map</span><span class="o">);</span>
+        <span class="n">mapFragment</span><span class="o">.</span><span class="na">getMapAsync</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMapReady</span><span class="o">(</span><span class="n">GoogleMap</span> <span class="n">googleMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mMap</span> <span class="o">=</span> <span class="n">googleMap</span><span class="o">;</span>
+        <span class="c1">// Add a marker in Sydney and move the camera</span>
+        <span class="n">LatLng</span> <span class="n">sydney</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LatLng</span><span class="o">(-</span><span class="mi">34</span><span class="o">,</span> <span class="mi">151</span><span class="o">);</span>
+        <span class="n">mMap</span><span class="o">.</span><span class="na">addMarker</span><span class="o">(</span><span class="k">new</span> <span class="n">MarkerOptions</span><span class="o">().</span><span class="na">position</span><span class="o">(</span><span class="n">sydney</span><span class="o">).</span><span class="na">title</span><span class="o">(</span><span class="s">&quot;Marker in Sydney&quot;</span><span class="o">));</span>
+        <span class="n">mMap</span><span class="o">.</span><span class="na">moveCamera</span><span class="o">(</span><span class="n">CameraUpdateFactory</span><span class="o">.</span><span class="na">newLatLng</span><span class="o">(</span><span class="n">sydney</span><span class="o">));</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </pre></div></div></div>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_sqlite_3">SQLite</h1>
+<h1 id="_création_de_la_clé_d_8217_api">Création de la clé d&#8217;API</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-On l&#8217;instancie :
+Limitée à 10000 appels / jour
+</span>
+</li>
+<li>
+<span>
+Plusieurs options :
+</span>
+<ul class="">
+<li>
+<span>
+Suivez le lien dans le fichier <em>google_maps_api.xml</em>
+</span>
+</li>
+<li>
+<span>
+Depuis la <a href="https://console.developers.google.com">Google Developers Console</a>
+</span>
+</li>
+<li>
+<span>
+En suivant la <a href="https://developers.google.com/maps/documentation/android-api/signup">procédure complète</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Remplacez <em>YOUR_KEY_HERE</em> par la clé obtenue
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_d_8217_autres_solutions">D&#8217;autres solutions</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+OpenStreetMap
+</span>
+<ul class="">
+<li>
+<span>
+<a href="http://wiki.openstreetmap.org/wiki/Android">de très nombreuses librairies</a>
+</span>
+</li>
+<li>
+<span>
+Utilisé par TripAdvisor, NavFree&#8230;
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Des fonctionnalités additionnelles
+</span>
+<ul class="">
+<li>
+<span>
+Support des maps offline complètes
+</span>
+</li>
+<li>
+<span>
+Attention au guidage et à la fraîcheur des cartes
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_localisation">Localisation</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Une grande avancée dans l&#8217;univers du mobile
+</span>
+</li>
+<li>
+<span>
+Permet d&#8217;avoir des informations contextualisées
+</span>
+</li>
+<li>
+<span>
+Evite donc des saisies
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_exemples_d_8217_usages">Exemples d&#8217;usages</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Trouver un magasin proche de là où on se trouve
+</span>
+</li>
+<li>
+<span>
+Diriger l&#8217;utilisateur vers un endroit particulier
+</span>
+</li>
+<li>
+<span>
+Définir une zone Geofence
+</span>
+</li>
+<li>
+<span>
+Lancer des actions particulière si l&#8217;utilisateur entre ou sort de la zone
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_position_location">Position (Location)</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Représente une position sur terre
+</span>
+</li>
+<li>
+<span>
+Dans tous les cas :
+</span>
+<ul class="">
+<li>
+<span>
+Latitude, longitude, timestamp
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Optionnellement :
+</span>
+<ul class="">
+<li>
+<span>
+précision, altitude, vitesse, orientation
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_locationprovider">LocationProvider</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Source de géolocalisation
+</span>
+</li>
+<li>
+<span>
+Les données peuvent provenir de :
+</span>
+<ul class="">
+<li>
+<span>
+Satellites GPS (type GPS)
+</span>
+</li>
+<li>
+<span>
+Antennes du réseau GSM (type Network)
+</span>
+</li>
+<li>
+<span>
+Points d&#8217;accès WiFi (type Network)
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Source passive, en récupérant les données récupérées par les autres applications
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_permissions">Permissions</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+2 permissions différentes fonction de la granularité voulue :
 </span>
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">MySQLiteDB</span> <span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MySQLiteDB</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">NOM_BDD</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">VERSION_BDD</span><span class="o">);</span>
-<span class="n">SQLiteDatabase</span> <span class="n">database</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="na">getWritableDatabase</span><span class="o">();</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">android</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">ACCESS_COARSE_LOCATION</span>
 </pre></div></div></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="n">android</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">ACCESS_FINE_LOCATION</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_avantages_inconvénients">Avantages/inconvénients</h1>
+<div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Cursor :
+GPS
+</span>
+<ul class="">
+<li>
+<span>
+coûteux en batterie, précis, plus lent, extérieur
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Network
+</span>
+<ul class="">
+<li>
+<span>
+moins coûteux, moins précis, plus rapide, disponibilité variable
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Passive
+</span>
+<ul class="">
+<li>
+<span>
+le moins coûteux, le plus rapide, pas toujours disponible
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_locationmanager">LocationManager</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Encore un service système
+</span>
+</li>
+<li>
+<span>
+On le récupère comme les autres :
 </span>
 </li>
 </ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">Cursor</span> <span class="n">c</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">TABLE_BOOKS</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span>
-        <span class="n">COL_ID</span><span class="o">,</span> <span class="n">COL_ISBN</span><span class="o">,</span> <span class="n">COL_TITLE</span>
-<span class="o">},</span> <span class="n">COL_TITLE</span> <span class="o">+</span> <span class="s">&quot; LIKE \&quot;&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span><span class="s">&quot;\&quot;&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">LOCATION_SERVICE</span><span class="o">)</span>
 </pre></div></div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_locationmanager_2">LocationManager</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="paragraph"><p>Il permet de :</p></div>
 <ul class="">
 <li>
 <span>
-Update :
+Connaître la dernière position
+</span>
+</li>
+<li>
+<span>
+S&#8217;enregistrer pour être notifié des mises à jour
+</span>
+</li>
+<li>
+<span>
+Recevoir des Intents quand on entre ou sort d&#8217;une une zone géographique
 </span>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_locationlistener">LocationListener</h1>
+<div class="sectionbody" style="max-width:45em">
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COL_ISBN</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getIsbn</span><span class="o">());</span>
-<span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">COL_TITLE</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getTitre</span><span class="o">());</span>
-<span class="k">return</span> <span class="n">bdd</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">TABLE_BOOKS</span><span class="o">,</span> <span class="n">values</span><span class="o">,</span> <span class="n">COL_ID</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span><span class="n">id</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onLocationChanged</span><span class="o">(</span><span class="n">Location</span> <span class="n">location</span><span class="o">)</span>
 </pre></div></div></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_divers">Divers</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Des tonnes de librairies Java utilisables
-</span>
-</li>
-<li>
-<span>
-Une grosse communauté et des projets qui répondent aux problèmes récurrents (Event Bus, REST&#8230;)
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_capteurs">Capteurs</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Accès depuis le SensorManager depuis le Context
-</span>
-</li>
-</ul>
 <div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="n">mSensorManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">SensorManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">SENSOR_SERVICE</span><span class="o">);</span>
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onProviderDisabled</span><span class="o">(</span><span class="n">String</span> <span class="n">provider</span><span class="o">)</span>
 </pre></div></div></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<img alt="Warning" src="data:image/png;base64,
-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" />
-</td>
-<td class="content">Vérifier la présence ou absence du capteur, n&#8217;appeler que si nécessaire et libérer le capteur</td>
-</tr></table>
-</div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onProviderEnabled</span><span class="o">(</span><span class="n">String</span> <span class="n">provider</span><span class="o">)</span>
+</pre></div></div></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onStatusChanged</span><span class="o">(</span><span class="n">String</span> <span class="n">provider</span><span class="o">,</span> <span class="kt">int</span> <span class="n">status</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">extras</span><span class="o">)</span>
+</pre></div></div></div>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_android_assets_studio">Android Assets Studio</h1>
+<h1 id="_obtenir_la_localisation">Obtenir la localisation</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Par un Googler : Roman Nurik
-</span>
-<ul class="">
-<li>
-<span>
-Site : <a href="http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html">http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html</a>
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-Fournit différents outils
-</span>
-<ul class="">
-<li>
-<span>
-Génération d&#8217;icônes
+On se met à l'écoute des mises à jour des providers
 </span>
 </li>
 <li>
 <span>
-Génération d&#8217;image de terminaux incrustées
+On conserve la meilleure estimation
 </span>
 </li>
 <li>
 <span>
-Online Nine-patch generator
+Quand elle est suffisante pour notre cas, on arrête l'écoute
 </span>
 </li>
 <li>
 <span>
-Générateur de thèmes
-</span>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_librairies">Librairies</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Android support library
-</span>
-</li>
-<li>
-<span>
-NineOldAndroids
-</span>
-<ul class="">
-<li>
-<span>
-Jake Wharton
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span>
-Retrofit
-</span>
-</li>
-<li>
-<span>
-Picasso
-</span>
-</li>
-<li>
-<span>
-ButterKnife
+On utilise alors cette valeur
 </span>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_et_sinon_8230">Et sinon&#8230;</h1>
+<h1 id="_conseils_pour_conserver_de_la_batterie">Conseils pour conserver de la batterie</h1>
 <div class="sectionbody" style="max-width:45em">
-<div class="paragraph"><p><a href="https://github.com/codepath/android_guides/wiki/Must-Have-Libraries">https://github.com/codepath/android_guides/wiki/Must-Have-Libraries</a></p></div>
+<ul class="">
+<li>
+<span>
+Toujours vérifier si un ancien enregistrement convient
+</span>
+</li>
+<li>
+<span>
+Limiter le temps de mesure et demander rarement de nouvelle valeur
+</span>
+</li>
+<li>
+<span>
+Utiliser juste la précision nécessaire
+</span>
+</li>
+<li>
+<span>
+Coupez les mises à jour sur le onPause
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_bonus">Bonus</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Obfuscation
+</span>
+<ul class="">
+<li>
+<span>
+ProGuard
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Signature
+</span>
+</li>
+</ul>
 </div>
 </div>
 </body>
