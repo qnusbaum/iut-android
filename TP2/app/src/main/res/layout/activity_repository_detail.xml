@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Repository Name"
+        android:text="@string/repository_name"
         android:layout_margin="10dp"
         android:id="@+id/repoName" />
 
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Content description"
+        android:text="@string/content_description"
         android:layout_margin="10dp"
         android:id="@+id/repoDescription" />
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Created at : "
+        android:text="@string/created_at"
         android:layout_margin="10dp"
         android:id="@+id/createdAt" />
     <View
@@ -39,7 +39,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
@@ -53,7 +53,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/repoUserImage"
             android:layout_margin="10dp"
-            android:src="@drawable/jellybean" />
+            android:src="@drawable/jellybean"
+            android:contentDescription="@string/user_avatar" />
     </LinearLayout>
 
     <View
@@ -64,7 +65,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View on Github"
+        android:text="@string/view_on_github"
         android:id="@+id/githubButton"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

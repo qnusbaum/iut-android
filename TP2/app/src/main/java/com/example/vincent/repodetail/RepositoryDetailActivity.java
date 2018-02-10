@@ -12,7 +12,7 @@ public class RepositoryDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_repository_detail);
+        setContentView(R.layout.activity_repository_detail_constraint);
         Button githubButton = findViewById(R.id.githubButton);
         githubButton.setOnClickListener(new View.OnClickListener() {
             @Override
